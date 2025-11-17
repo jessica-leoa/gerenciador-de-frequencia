@@ -26,22 +26,33 @@ O foco está em:
 
 Para manter o projeto focado nos objetivos da disciplina, o desenvolvimento inicial contempla apenas o **Módulo do Professor**, com as seguintes funcionalidades essenciais:
 
--   ✅ **Autenticação do Professor:**
-    -   [ ] Tela de login para acesso seguro ao sistema.
-    -   [ ] Validação de credenciais (inicialmente com dados fixos, sem banco de dados).
+-   ✅ **Fucionalidade do Professor:**
+    -   [ ] Criar disciplina
+    -   [ ] adicionar carga horária da disciplina
+    -   [ ] Cadastrar alunos nas disciplinas
+    -   [ ] Editar disciplina e carga horária 
 
 -   ✅ **Dashboard de Turmas:**
-    -   [ ] Após o login, o professor visualiza uma lista das turmas sob sua responsabilidade.
+    -   [ ] O professor visualiza uma lista das turmas
+    -   [ ] Editar lista de chamada, o professor pode corrigir a presença ou falta do aluno
 
 -   ✅ **Realização de Chamada:**
     -   [ ] Ao selecionar uma turma, o sistema exibe a lista de alunos.
-    -   [ ] Interface para marcar o status de cada aluno como **"Presente"** ou **"Faltou"**.
-    -   [ ] Funcionalidade para salvar a chamada, registrando a data e os status de presença.
+    -   [ ] Marcar o status de cada aluno como **"Presente"** ou **"Faltou"**
+    -   [ ] Funcionalidade para salvar a chamada, registrando a data e os status de presença
 
 -   ✅ **Histórico de Frequência:**
-    -   [ ] Consulta do registro de frequência de uma turma para uma data específica.
+    -   [ ] Consulta do registro de frequência de uma turma para uma data específica
+    -   [ ] Ver alunos reprovado por falta
 
-## 3. Tecnologias Utilizadas
+## 3 Método de gerenciamento
+- Metodologia ágil Scrum
+- Usaremos o Trunk-based development como prática de versionamento pois entendo que atender  melhor as práticas DevOps
+- Usaremos o GitHub Project como ferramente de gerenciamento de requisitos e as Milistones como Sprints, associando Issues as essas Milistones.
+- As atualizações no código só será feita via Pull Request
+- Versionamento semantico com SemVer
+
+## 4. Tecnologias Utilizadas
 
 | Categoria      | Tecnologia                                                              | Propósito                                             |
 | -------------- | ----------------------------------------------------------------------- | ----------------------------------------------------- |
@@ -53,7 +64,7 @@ Para manter o projeto focado nos objetivos da disciplina, o desenvolvimento inic
 
 *Observação: Nesta fase inicial, não será utilizado um banco de dados. Os dados das turmas e alunos serão simulados ("mockados") diretamente no código-fonte para simplificar o ambiente.*
 
-## 4. Como Executar o Projeto Localmente
+## 5. Como Executar o Projeto Localmente
 
 Para executar esta aplicação, você precisará ter o **Git** e o **Docker** instalados em sua máquina.
 
@@ -82,13 +93,13 @@ Para executar esta aplicação, você precisará ter o **Git** e o **Docker** in
 5.  **Acesse a aplicação:**
     Abra seu navegador e acesse [http://localhost:8080](http://localhost:8080)
 
-## 5. Estrutura do Repositório (Planejada)
+## 6. Estrutura do Repositório (Planejada)
 
 ```
 
 ```
 
-## 6. Autores
+## 7. Autores
 
 **Jéssica Roberta de Souza Santos**
 
