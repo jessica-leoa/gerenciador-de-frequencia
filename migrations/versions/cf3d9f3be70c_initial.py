@@ -25,6 +25,8 @@ def upgrade() -> None:
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('nome', sa.String(length=120), nullable=False),
     sa.Column('matricula', sa.String(length=50), nullable=False),
+    sa.Column('turma_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['turma_id'], ['turmas.id'], ),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('matricula')
     )

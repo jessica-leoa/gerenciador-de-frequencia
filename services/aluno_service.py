@@ -2,7 +2,7 @@ from extensions import db
 from models.aluno import Aluno
 
 def create_aluno(data):
-    aluno = Aluno(nome=data["nome"], matricula=data["matricula"])
+    aluno = Aluno(nome=data["nome"], matricula=data["matricula"], turma_id = data["turma_id"])
     db.session.add(aluno)
     db.session.commit()
     return aluno
@@ -19,6 +19,7 @@ def update_aluno(id, data):
         return None
     aluno.nome = data.get("nome", aluno.nome)
     aluno.matricula = data.get("matricula", aluno.matricula)
+    aluno.turma_id = data.get("turma_id",aluno.turma_id)
     db.session.commit()
     return aluno
 

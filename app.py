@@ -19,8 +19,8 @@ def create_app():
     @app.route("/seed")
     def seed():
         with app.app_context():
-            seed_alunos()
             seed_turmas()
+            seed_alunos()
             seed_aulas()
         return "Seu banco foi populado com dados iniciais!"
     

@@ -7,9 +7,9 @@ def seed_alunos():
         return
     
     alunos_iniciais = [
-        Aluno(nome="Lucas Silvestre", matricula="2025001"),
-        Aluno(nome="Tobias RXFX", matricula="2025002"),
-        Aluno(nome="Jessica Leoa", matricula="2025003"),
+        Aluno(nome="Lucas Silvestre",turma_id = 1, matricula="2025001"),
+        Aluno(nome="Tobias RXFX", turma_id = 2, matricula="2025002"),
+        Aluno(nome="Jessica Leoa", turma_id = 2, matricula="2025003"),
     ]
 
     db.session.add_all(alunos_iniciais)
