@@ -70,27 +70,43 @@ Para executar esta aplicação, você precisará ter o **Git** e o **Docker** in
 
 1.  **Clone o repositório:**
     ```bash
-    git clone https://github.com/jessica-leoa/gerenciador-de-frequencia.git
-    ```
-
-2.  **Navegue até o diretório do projeto:**
-    ```bash
+    git clone [https://github.com/jessica-leoa/gerenciador-de-frequencia.git](https://github.com/jessica-leoa/gerenciador-de-frequencia.git)
     cd gerenciador-de-frequencia
     ```
 
-3.  **Construa a imagem Docker:**
-    Este comando lê o `Dockerfile` e cria uma imagem contendo todas as dependências e o código da aplicação.
+2.  **Preparação do Ambiente Local (Persistência do DB):**
+    Crie a pasta local que será usada para persistir o banco de dados SQLite, evitando que os dados sejam perdidos ao desligar o container.
+    ```bash
+    mkdir instance
+    ```
+
+3.  **Construa a imagem Docker (apenas na primeira vez ou após mudanças no Dockerfile):**
     ```bash
     docker build -t gerenciador-de-frequencia .
     ```
 
-4.  **Execute o contêiner a partir da imagem:**
-    Este comando inicia um contêiner, mapeando a porta 8080 do seu computador para a porta 8080 do contêiner.
+4.  **Execute o contêiner de Desenvolvimento (Apenas uma vez para criar):**
+    Use o volume (`-v`) para sincronizar o código e o nome fixo (`--name`) para reutilizar o container.
+    **Mantenha o terminal aberto. O Flask está rodando aqui.**
     ```bash
-    docker run -p 8080:8080 gerenciador-de-frequencia
+    # Para Linux/Mac/WSL
+    docker run --name frequencia_dev -p 8080:8080 -v $(pwd):/app -e FLASK_DEBUG=1 gerenciador-de-frequencia
+    
+    # Se estiver no Windows PowerShell, use:
+    # docker run --name frequencia_dev -p 8080:8080 -v ${PWD}:/app -e FLASK_DEBUG=1 gerenciador-de-frequencia
+    ```
+    
+5.  **Fluxo de Trabalho (Para Iniciar/Parar Diariamente):**
+    Se você já criou o container uma vez, use apenas:
+    ```bash
+    # Para parar a aplicação:
+    docker stop frequencia_dev
+    
+    # Para ligar a aplicação novamente (muito mais rápido):
+    docker start frequencia_dev
     ```
 
-5.  **Acesse a aplicação:**
+6.  **Acesse a aplicação:**
     Abra seu navegador e acesse [http://localhost:8080](http://localhost:8080)
 
 ## 6. Estrutura do Repositório (Planejada)
