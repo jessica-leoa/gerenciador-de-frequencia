@@ -7,6 +7,7 @@ from seed.seed_aluno import seed_alunos
 from seed.seed_aulas import seed_aulas
 from seed.seed_turma import seed_turmas
 
+__version__ = "0.1.0"
 
 def create_app():
     app = Flask(__name__)
