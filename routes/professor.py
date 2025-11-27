@@ -44,3 +44,22 @@ def editar_turma(id):
     db.session.commit()
     flash("Turma atualizada!", "success")
     return redirect(url_for("professor.ver_turma", id=id))
+
+# --- GERENCIAMENTO DE ALUNOS ---
+
+@professor_bp.route("/turmas/<int:turma_id>/aluno/novo", methods=["POST"])
+def adicionar_aluno(turma_id):
+    nome = request.form.get("nome")
+    matricula = request.form.get("matricula")
+    
+    # Verifica duplicidade simples
+    existe = Aluno.query.filter_by(matricula=matricula).first()
+    if existe:
+        flash("Erro: Matrícula já existe no sistema.", "danger")
+        return redirect(url_for("professor.ver_turma", id=turma_id))
+
+    novo_aluno = Aluno(nome=nome, matricula=matricula, turma_id=turma_id)
+    db.session.add(novo_aluno)
+    db.session.commit()
+    flash("Aluno matriculado com sucesso!", "success")
+    return redirect(url_for("professor.ver_turma", id=turma_id))
