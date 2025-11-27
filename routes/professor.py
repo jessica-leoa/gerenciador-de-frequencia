@@ -36,3 +36,11 @@ def ver_turma(id):
     aulas = Aula.query.filter_by(turma_id=id).order_by(Aula.data_aula.desc()).all()
     return render_template("turma_detalhes.html", turma=turma, aulas=aulas)
 
+@professor_bp.route("/turmas/<int:id>/editar", methods=["POST"])
+def editar_turma(id):
+    turma = Turma.query.get_or_404(id)
+    turma.nome = request.form.get("nome")
+    turma.carga_horaria = request.form.get("carga_horaria")
+    db.session.commit()
+    flash("Turma atualizada!", "success")
+    return redirect(url_for("professor.ver_turma", id=id))
