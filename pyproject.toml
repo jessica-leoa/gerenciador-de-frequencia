@@ -1,0 +1,16 @@
+[tool.semantic_release]
+version_variable = [
+    "app.py:__version__",  # O script vai procurar __version__ = "..." no app.py e atualizar sozinho
+]
+version_toml = [
+    "pyproject.toml:tool.poetry.version" # Opcional se usar poetry, mas bom deixar
+]
+branch = "main"
+upload_to_pypi = false
+upload_to_release = true
+build_command = "echo 'Pula build de pacote python (apenas release)'"
+commit_parser = "angular" # Isso espera: feat: ..., fix: ...
+
+[tool.pytest.ini_options]
+pythonpath = "."
+testpaths = ["tests"]
