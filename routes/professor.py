@@ -63,3 +63,17 @@ def adicionar_aluno(turma_id):
     db.session.commit()
     flash("Aluno matriculado com sucesso!", "success")
     return redirect(url_for("professor.ver_turma", id=turma_id))
+
+# --- GERENCIAMENTO DE AULAS E CHAMADA ---
+@professor_bp.route("/turmas/<int:turma_id>/aula/nova", methods=["POST"])
+def criar_aula(turma_id):
+    data_str = request.form.get("data_aula")
+    data_obj = datetime.strptime(data_str, '%Y-%m-%d').date()
+    
+    nova_aula = Aula(turma_id=turma_id, data_aula=data_obj)
+    db.session.add(nova_aula)
+    db.session.commit()
+    
+    flash("Aula agendada! Realize a chamada agora.", "success")
+    # Redireciona direto para a chamada
+    return redirect(url_for("professor.realizar_chamada", aula_id=nova_aula.id))
