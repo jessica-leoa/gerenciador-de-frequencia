@@ -28,3 +28,11 @@ def criar_turma():
         return redirect(url_for("professor.listar_turmas"))
     
     return render_template("turma_form.html")
+
+@professor_bp.route("/turmas/<int:id>")
+def ver_turma(id):
+    turma = Turma.query.get_or_404(id)
+    # Ordena as aulas por data
+    aulas = Aula.query.filter_by(turma_id=id).order_by(Aula.data_aula.desc()).all()
+    return render_template("turma_detalhes.html", turma=turma, aulas=aulas)
+
