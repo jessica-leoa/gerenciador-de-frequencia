@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('professor.listar_turmas') }}">Turmas</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ turma.nome }}</li>
+            </ol>
+        </nav>
+        
+        <div class="card bg-white shadow-sm p-4">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <h1 class="display-6">{{ turma.nome }}</h1>
+                    <p class="text-muted">Carga Horária: {{ turma.carga_horaria }} horas | Total Alunos: {{ turma.alunos|length }}</p>
+                </div>
+                <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#editTurmaModal">
+                    <i class="fas fa-edit"></i> Editar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Alunos Matriculados</h5>
+                <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#addAlunoModal">
+                    <i class="fas fa-user-plus"></i> Adicionar
+                </button>
+            </div>
+            <ul class="list-group list-group-flush">
+                {% for aluno in turma.alunos %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>{{ aluno.nome }}</strong><br>
+                        <small class="text-muted">Mat: {{ aluno.matricula }}</small>
+                    </div>
+                    <span class="badge bg-secondary rounded-pill"><i class="fas fa-user"></i></span>
+                </li>
+                {% else %}
+                <li class="list-group-item text-center text-muted">Nenhum aluno cadastrado.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Histórico de Aulas</h5>
+                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addAulaModal">
+                    <i class="fas fa-calendar-plus"></i> Nova Aula
+                </button>
+            </div>
+            <div class="list-group list-group-flush">
+                {% for aula in aulas %}
+                <a href="{{ url_for('professor.realizar_chamada', aula_id=aula.id) }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                    <div>
+                        <i class="far fa-calendar-alt me-2 text-primary"></i>
+                        {{ aula.data_aula.strftime('%d/%m/%Y') }}
+                    </div>
+                    <span class="btn btn-sm btn-outline-primary">Ver/Editar Chamada</span>
+                </a>
+                {% else %}
+                <div class="p-3 text-center text-muted">Nenhuma aula registrada.</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="addAlunoModal" tabindex="-1">
+    <div class="modal-dialog">
+        <form action="{{ url_for('professor.adicionar_aluno', turma_id=turma.id) }}" method="POST">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Matricular Aluno</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Nome Completo</label>
+                        <input type="text" name="nome" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Matrícula</label>
+                        <input type="text" name="matricula" class="form-control" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-success">Matricular</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="addAulaModal" tabindex="-1">
+    <div class="modal-dialog">
+        <form action="{{ url_for('professor.criar_aula', turma_id=turma.id) }}" method="POST">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Registrar Nova Aula</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Data da Aula</label>
+                        <input type="date" name="data_aula" class="form-control" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary">Criar e Fazer Chamada</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="editTurmaModal" tabindex="-1">
+    <div class="modal-dialog">
+        <form action="{{ url_for('professor.editar_turma', id=turma.id) }}" method="POST">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Turma</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Nome</label>
+                        <input type="text" name="nome" class="form-control" value="{{ turma.nome }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Carga Horária</label>
+                        <input type="number" name="carga_horaria" class="form-control" value="{{ turma.carga_horaria }}" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

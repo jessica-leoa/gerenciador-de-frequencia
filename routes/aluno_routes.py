@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, render_template
 from services.aluno_service import (
     create_aluno, get_alunos, get_aluno, update_aluno, delete_aluno
 )
@@ -14,9 +14,8 @@ def create():
 @aluno_bp.get("/")
 def list_all():
     alunos = get_alunos()
-    return jsonify([
-        {"id": s.id, "nome": s.nome, "matricula": s.matricula, "turma_id":s.turma_id} for s in alunos
-    ])
+    return render_template("alunos.html", lista_alunos=alunos)
+
 
 @aluno_bp.get("/<int:id>")
 def get_one(id):
