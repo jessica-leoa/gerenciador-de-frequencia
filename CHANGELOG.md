@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.2.0 (2025-11-28)
+
+### Features
+
+- Release cumulativo das funcionalidades anteriores
+  ([`1bce413`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/1bce41332df6b850d12d915107b0e77b16c643ff))
+
+
 ## v1.1.0 (2025-11-28)
 
 ### Bug Fixes
