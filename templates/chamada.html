@@ -8,7 +8,7 @@
                 <h4 class="mb-0">Lista de Chamada</h4>
                 <small class="text-muted">{{ turma.nome }} - {{ aula.data_aula.strftime('%d/%m/%Y') }}</small>
             </div>
-            <a href="{{ url_for('professor.ver_turma', id=turma.id) }}" class="btn btn-outline-secondary btn-sm">Voltar</a>
+            <a href="{{ url_for('turmas.get_one', id=turma.id) }}" class="btn btn-outline-secondary btn-sm">Voltar</a>
         </div>
 
         <div class="card shadow">

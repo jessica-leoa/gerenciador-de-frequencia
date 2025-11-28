@@ -11,7 +11,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
         <div class="container">
-            <a class="navbar-brand" href="{{ url_for('professor.listar_turmas') }}">
+            <a class="navbar-brand" href="{{ url_for('turmas.list_all') }}">
                 <i class="fas fa-school me-2"></i>SGF - Professor
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -20,7 +20,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('professor.listar_turmas') }}">Minhas Turmas</a>
+                        <a class="nav-link" href="{{ url_for('turmas.list_all') }}">Minhas Turmas</a>
                     </li>
                 </ul>
             </div>

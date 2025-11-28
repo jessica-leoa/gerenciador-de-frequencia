@@ -16,19 +16,8 @@ def get_all_aulas():
 
 
 def get_aula_by_id(id):
-    aula = Aula.query.get(id)
-    if not aula:
-        return None
-
-    turma = Turma.query.get(aula.turma_id)
-    nome_turma = turma.nome if turma else None
-
-    return {
-        "id": aula.id,
-        "turma_id": aula.turma_id,
-        "turma_nome": nome_turma,
-        "data_aula": aula.data_aula.isoformat()
-    }
+    aula = Aula.query.get_or_404(id)
+    return aula
 
 
 def update_aula(id, data):
@@ -51,3 +40,6 @@ def delete_aula(id):
     db.session.delete(aula)
     db.session.commit()
     return True
+
+def aulas_by_turma(turma_id):
+    return Aula.query.filter_by(turma_id=turma_id).order_by(Aula.data_aula.desc()).all()

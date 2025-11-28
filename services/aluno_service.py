@@ -1,6 +1,12 @@
 from extensions import db
 from models.aluno import Aluno
 
+def aluno_existe(matricula):
+    return Aluno.query.filter_by(matricula=matricula).count() > 0
+
+def get_alunos_by_turma(turma_id):
+    return Aluno.query.filter_by(turma_id=turma_id).all()
+
 def create_aluno(data):
     aluno = Aluno(nome=data["nome"], matricula=data["matricula"], turma_id = data["turma_id"])
     db.session.add(aluno)

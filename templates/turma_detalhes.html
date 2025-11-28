@@ -5,7 +5,7 @@
     <div class="col-md-12">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ url_for('professor.listar_turmas') }}">Turmas</a></li>
+                <li class="breadcrumb-item"><a href="{{ url_for('turmas.list_all') }}">Turmas</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{ turma.nome }}</li>
             </ol>
         </nav>
@@ -78,7 +78,7 @@
 
 <div class="modal fade" id="addAlunoModal" tabindex="-1">
     <div class="modal-dialog">
-        <form action="{{ url_for('professor.adicionar_aluno', turma_id=turma.id) }}" method="POST">
+        <form action="{{ url_for('turmas.adicionar_aluno', turma_id=turma.id) }}" method="POST">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Matricular Aluno</h5>
@@ -105,7 +105,7 @@
 
 <div class="modal fade" id="addAulaModal" tabindex="-1">
     <div class="modal-dialog">
-        <form action="{{ url_for('professor.criar_aula', turma_id=turma.id) }}" method="POST">
+        <form action="{{ url_for('turmas.criar_aula', turma_id=turma.id) }}" method="POST">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Registrar Nova Aula</h5>
@@ -128,7 +128,7 @@
 
 <div class="modal fade" id="editTurmaModal" tabindex="-1">
     <div class="modal-dialog">
-        <form action="{{ url_for('professor.editar_turma', id=turma.id) }}" method="POST">
+        <form action="{{ url_for('turmas.update', id=turma.id) }}" method="POST">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Editar Turma</h5>
