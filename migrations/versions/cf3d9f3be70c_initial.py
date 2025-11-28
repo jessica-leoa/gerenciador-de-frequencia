@@ -46,10 +46,10 @@ def upgrade() -> None:
     op.create_table('presencas',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('aluno_id', sa.Integer(), nullable=False),
-    sa.Column('presenca_id', sa.Integer(), nullable=False),
+    sa.Column('aula_id', sa.Integer(), nullable=False),
     sa.Column('presenca', sa.Boolean(), nullable=True),
     sa.ForeignKeyConstraint(['aluno_id'], ['alunos.id'], ),
-    sa.ForeignKeyConstraint(['presenca_id'], ['aulas.id'], ),
+    sa.ForeignKeyConstraint(['aula_id'], ['aulas.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
