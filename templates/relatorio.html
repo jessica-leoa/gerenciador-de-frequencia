@@ -1,0 +1,472 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-chart-bar me-2"></i>Relatórios do Sistema</h2>
+    <a href="{{ url_for('turmas.list_all') }}" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left me-1"></i> Voltar para Turmas
+    </a>
+</div>
+
+<ul class="nav nav-tabs mb-4" id="relatoriosTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link {% if aba == 'geral' %}active{% endif %}" id="geral-tab" data-bs-toggle="tab" data-bs-target="#geral" type="button" role="tab">
+            <i class="fas fa-tachometer-alt me-2"></i>Visão Geral
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link {% if aba == 'frequencia' %}active{% endif %}" id="frequencia-tab" data-bs-toggle="tab" data-bs-target="#frequencia" type="button" role="tab">
+            <i class="fas fa-calendar-check me-2"></i>Frequências
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link {% if aba == 'estatisticas' %}active{% endif %}" id="estatisticas-tab" data-bs-toggle="tab" data-bs-target="#estatisticas" type="button" role="tab">
+            <i class="fas fa-chart-pie me-2"></i>Estatísticas
+        </button>
+    </li>
+</ul>
+
+<div class="tab-content" id="relatoriosTabContent">
+    
+    <div class="tab-pane fade {% if aba == 'geral' %}show active{% endif %}" id="geral" role="tabpanel">
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card text-center text-white bg-primary">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ total_alunos }}</h3>
+                        <p class="card-text">Total de Alunos</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center text-white bg-success">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ total_turmas }}</h3>
+                        <p class="card-text">Turmas Ativas</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center text-white bg-info">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ total_aulas }}</h3>
+                        <p class="card-text">Aulas Ministradas</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center text-white bg-warning">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ total_presencas }}</h3>
+                        <p class="card-text">Registros de Presença</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-white">
+                <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>Frequência por Turma</h5>
+            </div>
+            <div class="card-body">
+                {% if frequencia_turmas %}
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Turma</th>
+                                <th>Alunos</th>
+                                <th>Aulas</th>
+                                <th>Presenças</th>
+                                <th>Frequência</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in frequencia_turmas %}
+                            <tr>
+                                <td>
+                                    <strong>{{ item.turma.nome }}</strong>
+                                </td>
+                                <td>{{ item.alunos }}</td>
+                                <td>{{ item.aulas }}</td>
+                                <td>{{ item.presencas }}</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="progress flex-grow-1 me-2" style="height: 8px;">
+                                            <div class="progress-bar 
+                                                {% if item.frequencia >= 75 %}bg-success
+                                                {% elif item.frequencia >= 50 %}bg-warning
+                                                {% else %}bg-danger{% endif %}" 
+                                                style="width: {{ item.frequencia }}%">
+                                            </div>
+                                        </div>
+                                        <span>{{ item.frequencia }}%</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    {% if item.frequencia >= 75 %}
+                                    <span class="badge bg-success">Boa</span>
+                                    {% elif item.frequencia >= 50 %}
+                                    <span class="badge bg-warning">Média</span>
+                                    {% else %}
+                                    <span class="badge bg-danger">Baixa</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="text-center py-4">
+                    <i class="fas fa-chart-bar fa-2x text-muted mb-2"></i>
+                    <p class="text-muted">Nenhum dado de frequência disponível.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if alunos_baixa_frequencia %}
+        <div class="card shadow-sm border-warning">
+            <div class="card-header bg-warning text-white">
+                <h5 class="mb-0"><i class="fas fa-exclamation-triangle me-2"></i>Alunos com Baixa Frequência (< 75%)</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Aluno</th>
+                                <th>Turma</th>
+                                <th>Presenças</th>
+                                <th>Total Aulas</th>
+                                <th>Frequência</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in alunos_baixa_frequencia %}
+                            <tr>
+                                <td>{{ item.aluno.nome }}</td>
+                                <td>{{ item.turma.nome }}</td>
+                                <td>{{ item.presencas }}</td>
+                                <td>{{ item.aulas }}</td>
+                                <td>
+                                    <span class="badge bg-danger">{{ item.frequencia }}%</span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="tab-pane fade {% if aba == 'frequencia' %}show active{% endif %}" id="frequencia" role="tabpanel">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <form method="GET" class="row g-3">
+                    <input type="hidden" name="aba" value="frequencia">
+                    <div class="col-md-6">
+                        <label for="turma_id" class="form-label">Selecionar Turma</label>
+                        <select name="turma_id" id="turma_id" class="form-select" onchange="this.form.submit()">
+                            <option value="">-- Selecione uma turma --</option>
+                            {% for turma in turmas %}
+                            <option value="{{ turma.id }}"
+                                    {% if turma_selecionada and turma_selecionada.id == turma.id %}selected{% endif %}>
+                                {{ turma.nome }} ({{ turma.alunos|length }} alunos)
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {% if turma_selecionada %}
+        <div class="card shadow-sm">
+            <div class="card-header bg-white">
+                <h5 class="mb-0">
+                    Frequência - {{ turma_selecionada.nome }}
+                    <span class="badge bg-primary ms-2">{{ dados_frequencia|length }} alunos</span>
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if dados_frequencia %}
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Aluno</th>
+                                <th>Matrícula</th>
+                                <th>Presenças</th>
+                                <th>Total Aulas</th>
+                                <th>Frequência</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in dados_frequencia %}
+                            <tr>
+                                <td>{{ item.aluno.nome }}</td>
+                                <td>{{ item.aluno.matricula }}</td>
+                                <td>{{ item.total_presencas }}</td>
+                                <td>{{ item.total_aulas }}</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="progress flex-grow-1 me-2" style="height: 8px;">
+                                            <div class="progress-bar 
+                                                {% if item.frequencia >= 75 %}bg-success
+                                                {% elif item.frequencia >= 50 %}bg-warning
+                                                {% else %}bg-danger{% endif %}" 
+                                                style="width: {{ item.frequencia }}%">
+                                            </div>
+                                        </div>
+                                        <span>{{ item.frequencia }}%</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    {% if item.frequencia >= 75 %}
+                                    <span class="badge bg-success">Aprovado</span>
+                                    {% elif item.frequencia >= 50 %}
+                                    <span class="badge bg-warning">Atenção</span>
+                                    {% else %}
+                                    <span class="badge bg-danger">Reprovado</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-md-3">
+                        <div class="card text-center bg-light">
+                            <div class="card-body">
+                                <h5 class="card-title text-success">
+                                    {{ dados_frequencia|selectattr('status', 'equalto', 'Aprovado')|list|length }}
+                                </h5>
+                                <p class="card-text">Aprovados</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-center bg-light">
+                            <div class="card-body">
+                                <h5 class="card-title text-warning">
+                                    {{ dados_frequencia|selectattr('status', 'equalto', 'Atenção')|list|length }}
+                                </h5>
+                                <p class="card-text">Em Atenção</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-center bg-light">
+                            <div class="card-body">
+                                <h5 class="card-title text-danger">
+                                    {{ dados_frequencia|selectattr('status', 'equalto', 'Reprovado')|list|length }}
+                                </h5>
+                                <p class="card-text">Reprovados</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-center bg-light">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">{{ dados_frequencia|length }}</h5>
+                                <p class="card-text">Total Alunos</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="text-center py-4">
+                    <i class="fas fa-users fa-2x text-muted mb-2"></i>
+                    <p class="text-muted">Nenhum dado de frequência disponível para esta turma.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% else %}
+        <div class="card shadow-sm">
+            <div class="card-body text-center py-5">
+                <i class="fas fa-calendar-alt fa-3x text-muted mb-3"></i>
+                <h5 class="text-muted">Selecione uma turma para ver o relatório de frequência</h5>
+                <p class="text-muted">Escolha uma turma no filtro acima para visualizar as frequências dos alunos.</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="tab-pane fade {% if aba == 'estatisticas' %}show active{% endif %}" id="estatisticas" role="tabpanel">
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card text-center text-white bg-primary">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ total_alunos }}</h3>
+                        <p class="card-text">Total de Alunos</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center text-white bg-success">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ total_turmas }}</h3>
+                        <p class="card-text">Turmas Ativas</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center text-white bg-info">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ total_aulas }}</h3>
+                        <p class="card-text">Aulas Ministradas</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center text-white bg-warning">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ total_presencas + total_faltas }}</h3>
+                        <p class="card-text">Total Registros</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0"><i class="fas fa-chart-pie me-2"></i>Distribuição de Presenças</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <h2 class="text-success">{{ total_presencas }}</h2>
+                                    <p class="text-muted">Presenças Registradas</p>
+                                    <div class="progress" style="height: 20px;">
+                                        <div class="progress-bar bg-success" style="width: {{ percentual_presenca }}%">
+                                            {{ percentual_presenca }}%
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <h2 class="text-danger">{{ total_faltas }}</h2>
+                                    <p class="text-muted">Faltas Registradas</p>
+                                    <div class="progress" style="height: 20px;">
+                                        <div class="progress-bar bg-danger" style="width: {{ percentual_falta }}%">
+                                            {{ percentual_falta }}%
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0"><i class="fas fa-percentage me-2"></i>Taxas do Sistema</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <div class="mb-3">
+                                <h4 class="text-primary">{{ "%.1f"|format(total_aulas / total_turmas) if total_turmas > 0 else 0 }}</h4>
+                                <p class="text-muted">Média de Aulas por Turma</p>
+                            </div>
+                            <div class="mb-3">
+                                <h4 class="text-info">{{ "%.1f"|format(total_alunos / total_turmas) if total_turmas > 0 else 0 }}</h4>
+                                <p class="text-muted">Média de Alunos por Turma</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-header bg-white">
+                <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>Estatísticas por Turma</h5>
+            </div>
+            <div class="card-body">
+                {% if turmas_com_estatisticas %}
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Turma</th>
+                                <th>Alunos</th>
+                                <th>Aulas</th>
+                                <th>Frequência Geral</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in turmas_com_estatisticas %}
+                            <tr>
+                                <td>
+                                    <strong>{{ item.turma.nome }}</strong>
+                                </td>
+                                <td>{{ item.alunos }}</td>
+                                <td>{{ item.aulas }}</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="progress flex-grow-1 me-2" style="height: 8px;">
+                                            <div class="progress-bar 
+                                                {% if item.frequencia >= 75 %}bg-success
+                                                {% elif item.frequencia >= 50 %}bg-warning
+                                                {% else %}bg-danger{% endif %}" 
+                                                style="width: {{ item.frequencia }}%">
+                                            </div>
+                                        </div>
+                                        <span>{{ item.frequencia }}%</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    {% if item.frequencia >= 75 %}
+                                    <span class="badge bg-success">Excelente</span>
+                                    {% elif item.frequencia >= 50 %}
+                                    <span class="badge bg-warning">Regular</span>
+                                    {% else %}
+                                    <span class="badge bg-danger">Crítico</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="text-center py-4">
+                    <i class="fas fa-chart-bar fa-2x text-muted mb-2"></i>
+                    <p class="text-muted">Nenhuma estatística disponível.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Ativa a aba correta baseada na URL
+document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const abaParam = urlParams.get('aba');
+    
+    if (abaParam) {
+        const tabTrigger = document.querySelector(`[data-bs-target="#${abaParam}"]`);
+        if (tabTrigger) {
+            new bootstrap.Tab(tabTrigger).show();
+        }
+    }
+});
+</script>
+{% endblock %}
