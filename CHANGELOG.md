@@ -2,6 +2,35 @@
 
 <!-- version list -->
 
+## v1.2.4 (2025-11-30)
+
+### Bug Fixes
+
+- Adição do template de turma (ref #66)
+  ([`b4cd622`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/b4cd6228afeeca3b88fbc23e0dfa646878652a04))
+
+- Atualização do template de alunos ( ref #59)
+  ([`b6add87`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/b6add8747c24f388bbb2bb326610e777c0eb8790))
+
+- Atualização do template de base ( ref #60)
+  ([`4a1d802`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/4a1d802fa3a66e4c444957c5da3b5f77a2e736a7))
+
+- Atualização do template de chamada ( ref #61)
+  ([`85ea113`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/85ea113287e85c9fedcf020fb2008a716dab4fd7))
+
+- Atualização do template de index ( ref #62)
+  ([`28d9296`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/28d92963bb250cb5d4d2e51e8816e9e6233631a1))
+
+- Atualização do template de relatorio ( ref #65)
+  ([`fe4dbd7`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/fe4dbd7ad4a576b22f080a87d43b485ca4b06f0c))
+
+- Atualização do template de turma detalhes ( ref #63)
+  ([`354d5b8`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/354d5b8892e88f2eb0a632de5d920221f584a2cd))
+
+- Atualização do template de turma form (ref #64)
+  ([`63b03d5`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/63b03d5b6d4b179ec6e7df3aa7cad521d9c29a96))
+
+
 ## v1.2.3 (2025-11-30)
 
 ### Bug Fixes
