@@ -2,6 +2,26 @@
 
 <!-- version list -->
 
+## v1.2.3 (2025-11-30)
+
+### Bug Fixes
+
+- Ajusta código de turma_routes.py
+  ([`1998a63`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/1998a635ef962d21aa1bb0a8a9446a9280fb0bfb))
+
+- Atualização da rota de aluno (ref: #54)
+  ([`c2f1f50`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/c2f1f505cfa438e4d5024f2169fee90beb085199))
+
+- Atualização da rota de aula (ref: #56)
+  ([`4e951d4`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/4e951d4e7a84587672b6c64f0442b8cef9a7ba0e))
+
+- Atualização da rota de professor (ref: #55)
+  ([`7e66c6c`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/7e66c6c5010d10d627eec5ed5ba21f272e1af664))
+
+- Atualização da rota de turma (ref: #57)
+  ([`ed94649`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/ed9464904efeacb1c1753788509d5a551c84ea61))
+
+
 ## v1.2.2 (2025-11-30)
 
 ### Bug Fixes
