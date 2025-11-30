@@ -1,39 +1,237 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Lista de Alunos</title>
-</head>
-<body>
-    <h1>Gerenciamento de Alunos</h1>
+{% extends "base.html" %}
 
-    <a href="/alunos/criar">Adicionar Novo Aluno</a>
-    <br><br>
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-users me-2"></i>Gerenciamento de Alunos</h2>
+    <div>
+        <a href="{{ url_for('turmas.list_all') }}" class="btn btn-outline-secondary me-2">
+            <i class="fas fa-arrow-left me-1"></i> Voltar para Turmas
+        </a>
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addAlunoModal">
+            <i class="fas fa-user-plus me-1"></i> Adicionar Novo Aluno
+        </button>
+    </div>
+</div>
 
-    <table border="1" cellpadding="5">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Matrícula</th>
-                <th>ID da Turma</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for aluno in lista_alunos %}
-            <tr>
-                <td>{{ aluno.id }}</td>
-                <td>{{ aluno.nome }}</td>
-                <td>{{ aluno.matricula }}</td>
-                <td>{{ aluno.turma_id }}</td>
-                <td>
-                    <button>Editar</button>
-                    <button>Excluir</button>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</body>
-</html>
+<div class="card shadow-sm">
+    <div class="card-header bg-white">
+        <h5 class="mb-0">Lista de Alunos Cadastrados</h5>
+    </div>
+    <div class="card-body">
+        {% if lista_alunos %}
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Matrícula</th>
+                        <th>Turma</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for aluno in lista_alunos %}
+                    <tr>
+                        <td>{{ aluno.id }}</td>
+                        <td>
+                            <strong>{{ aluno.nome }}</strong>
+                        </td>
+                        <td>
+                            <code>{{ aluno.matricula }}</code>
+                        </td>
+                        <td>
+                            {% if aluno.turma %}
+                            <span class="badge bg-primary">{{ aluno.turma.nome }}</span>
+                            {% else %}
+                            <span class="badge bg-secondary">Sem turma</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            <div class="btn-group btn-group-sm">
+                                <button class="btn btn-outline-primary"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#editAlunoModal{{ aluno.id }}">
+                                    <i class="fas fa-edit me-1"></i> Editar
+                                </button>
+                                <button class="btn btn-outline-danger"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#deleteAlunoModal{{ aluno.id }}">
+                                    <i class="fas fa-trash me-1"></i> Excluir
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <div class="modal fade" id="editAlunoModal{{ aluno.id }}" tabindex="-1">
+                        <div class="modal-dialog">
+                            <form action="{{ url_for('alunos.editar_aluno', aluno_id=aluno.id) }}" method="POST">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Editar Aluno</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label class="form-label">Nome Completo</label>
+                                            <input type="text" name="nome" class="form-control"
+                                                   value="{{ aluno.nome }}" maxlength="50"
+                                                   pattern="[A-Za-zÀ-ú\s]{1,50}"
+                                                   title="Apenas letras e espaços, no máximo 50 caracteres."
+                                                   required>
+                                            <div class="form-text">Apenas letras, máximo 50 caracteres</div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Matrícula</label>
+                                            <input type="text" name="matricula" class="form-control"
+                                                   value="{{ aluno.matricula }}" maxlength="11"
+                                                   pattern="\d{1,11}"
+                                                   title="Apenas números, no máximo 11 dígitos."
+                                                   required>
+                                            <div class="form-text">Apenas números, máximo 11 dígitos</div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Turma</label>
+                                            <select name="turma_id" class="form-select">
+                                                <option value="">Selecione uma turma (opcional)</option>
+                                                {% for turma in turmas %}
+                                                <option value="{{ turma.id }}"
+                                                        {% if aluno.turma_id == turma.id %}selected{% endif %}>
+                                                    {{ turma.nome }}
+                                                </option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="deleteAlunoModal{{ aluno.id }}" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Confirmar Exclusão</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Tem certeza que deseja excluir o aluno <strong>{{ aluno.nome }}</strong>?</p>
+                                    <p class="text-danger">
+                                        <i class="fas fa-exclamation-triangle me-1"></i>
+                                        Esta ação também excluirá todos os registros de frequência deste aluno.
+                                    </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <form action="{{ url_for('alunos.excluir_aluno', aluno_id=aluno.id) }}" method="POST">
+                                        <button type="submit" class="btn btn-danger">Excluir Aluno</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-3">
+                <div class="card text-center bg-light">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">{{ lista_alunos|length }}</h5>
+                        <p class="card-text">Total de Alunos</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center bg-light">
+                    <div class="card-body">
+                        <h5 class="card-title text-success">
+                            {{ lista_alunos|selectattr('turma')|list|length }}
+                        </h5>
+                        <p class="card-text">Com Turma</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center bg-light">
+                    <div class="card-body">
+                        <h5 class="card-title text-warning">
+                            {{ lista_alunos|rejectattr('turma')|list|length }}
+                        </h5>
+                        <p class="card-text">Sem Turma</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center bg-light">
+                    <div class="card-body">
+                        <h5 class="card-title text-info">{{ turmas|length }}</h5>
+                        <p class="card-text">Turmas Ativas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-users fa-3x text-muted mb-3"></i>
+            <h5 class="text-muted">Nenhum aluno cadastrado</h5>
+            <p class="text-muted">Adicione o primeiro aluno para começar</p>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAlunoModal">
+                <i class="fas fa-user-plus me-1"></i> Adicionar Primeiro Aluno
+            </button>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="modal fade" id="addAlunoModal" tabindex="-1">
+    <div class="modal-dialog">
+        <form action="{{ url_for('turmas.criar_aluno') }}" method="POST">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Adicionar Novo Aluno</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Nome Completo</label>
+                        <input type="text" name="nome" class="form-control" maxlength="50" required
+                               pattern="[A-Za-zÀ-ú\s]{1,50}"
+                               title="Apenas letras e espaços, no máximo 50 caracteres."
+                               placeholder="Ex: João Silva">
+                        <div class="form-text">Apenas letras, máximo 50 caracteres</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Matrícula</label>
+                        <input type="text" name="matricula" class="form-control" maxlength="11" required
+                               pattern="\d{1,11}"
+                               title="Apenas números, no máximo 11 dígitos."
+                               placeholder="Ex: 20240001">
+                        <div class="form-text">Apenas números, máximo 11 dígitos</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Turma</label>
+                        <select name="turma_id" class="form-select">
+                            <option value="">Selecione uma turma (opcional)</option>
+                            {% for turma in turmas %}
+                            <option value="{{ turma.id }}">{{ turma.nome }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-success">Cadastrar Aluno</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
