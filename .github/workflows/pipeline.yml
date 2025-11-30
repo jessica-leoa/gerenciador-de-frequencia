@@ -40,7 +40,7 @@ jobs:
           # Garante que o script tem permissão de execução
           chmod +x run_tests.sh
           # Roda o script que sobe o docker, testa e derruba
-          ./run_tests.sh
+          ./scripts/run_tests.sh
 
   # LANÇAMENTO AUTOMÁTICO 
   release:
