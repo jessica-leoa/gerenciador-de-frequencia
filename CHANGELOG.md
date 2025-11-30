@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.2.1 (2025-11-30)
+
+### Bug Fixes
+
+- Atualização do dockerfile
+  ([`c366319`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/c36631934086313903f516197f8aad18facd0c1b))
+
+
 ## v1.2.0 (2025-11-28)
 
 ### Features
