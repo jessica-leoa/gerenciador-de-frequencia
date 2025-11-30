@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.4.0 (2025-11-30)
+
+### Features
+
+- Adicionando o docker-compose
+  ([`6fe7c1d`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/6fe7c1d0061e1430ede31a46dd2cf5e8b2f861b4))
+
+
 ## v1.3.0 (2025-11-30)
 
 ### Features
