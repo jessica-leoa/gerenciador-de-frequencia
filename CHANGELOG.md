@@ -2,6 +2,23 @@
 
 <!-- version list -->
 
+## v1.2.2 (2025-11-30)
+
+### Bug Fixes
+
+- Atualização do modelo de aluno (ref: #52)
+  ([`d2ce82c`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/d2ce82c395a31c2cc33a75f16b7aa0ffa6327b14))
+
+- Atualização do modelo de aula (ref #51)
+  ([`50cd2e7`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/50cd2e7e1233bb9ae076b8a87c65edb5bc33c353))
+
+- Atualização do modelo de presença (ref #50)
+  ([`e55147c`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/e55147ca4955d79477ea2e47ba1ce56bf8553779))
+
+- Atualização do modelo de turma (ref #49)
+  ([`f0cec48`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/f0cec482dc0d60f868c55f506e864eb18765a623))
+
+
 ## v1.2.1 (2025-11-30)
 
 ### Bug Fixes
