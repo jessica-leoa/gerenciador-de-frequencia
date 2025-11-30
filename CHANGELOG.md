@@ -2,6 +2,17 @@
 
 <!-- version list -->
 
+## v1.2.5 (2025-11-30)
+
+### Bug Fixes
+
+- Atualiza app.py
+  ([`1003012`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/100301260fec2a3a0cfe47ec09eeb989e0c65a16))
+
+- Atualiza turma_routes.py
+  ([`12b033a`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/12b033a19ebd023a47d9ef4e74c4b30bac378211))
+
+
 ## v1.2.4 (2025-11-30)
 
 ### Bug Fixes
