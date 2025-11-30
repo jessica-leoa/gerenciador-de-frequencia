@@ -2,6 +2,31 @@
 
 <!-- version list -->
 
+## v1.5.0 (2025-11-30)
+
+### Bug Fixes
+
+- Ajuste scripts testes)
+  ([`bdfb700`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/bdfb70030446f01b568728d8199b3dca6b79c96e))
+
+- Atualizacao pipeline
+  ([`e8a4dae`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/e8a4dae5da3359f23cdee1bc7ed3f61a5c638de5))
+
+- Modificações no ambiente para implementação de testes (ref #72)
+  ([`ec3b431`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/ec3b431037ce973130000212d221a536dee8e8b7))
+
+### Features
+
+- Atualizacao de ajuste pipeline
+  ([`025e851`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/025e851d65d272177fd633f651a4ead8218ae75b))
+
+- Criacao de testes (ref #74)
+  ([`6e88d69`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/6e88d6900f0f89e408c9d424cbbe7b42db3cc664))
+
+- Criacao de testes (ref #74)
+  ([`d719a92`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/d719a9219b76f18e8d32823cf9f9b27520df3fb1))
+
+
 ## v1.4.0 (2025-11-30)
 
 ### Features
