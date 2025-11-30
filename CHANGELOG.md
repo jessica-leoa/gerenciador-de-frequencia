@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.3.0 (2025-11-30)
+
+### Features
+
+- Criacao de script de testes
+  ([`b4f8749`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/b4f87499ff04e16dd08c7198ece54605297c5765))
+
+
 ## v1.2.5 (2025-11-30)
 
 ### Bug Fixes
