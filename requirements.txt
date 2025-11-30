@@ -3,3 +3,5 @@ Flask-SQLAlchemy==3.1.1
 SQLAlchemy==2.0.44
 alembic==1.17.2
 Flask-Migrate==4.1.0
+pytest
+pytest-flask

@@ -23,7 +23,7 @@ def criar_aluno():
         flash("Nome inválido. Deve ter no máximo 50 caracteres e conter apenas letras e espaços.", "danger")
         return redirect(url_for("alunos.list_all"))
 
-    # 2. Validação de Matrícula
+    # 2. Validação de Matrícula (Verifica se é puramente numérica)
     if not matricula or len(matricula) > 11 or not matricula.isdigit():
         flash("Matrícula inválida. Deve ter no máximo 11 dígitos e conter apenas números.", "danger")
         return redirect(url_for("alunos.list_all"))
@@ -33,13 +33,21 @@ def criar_aluno():
         flash(f"Matrícula '{matricula}' já cadastrada.", "danger")
         return redirect(url_for("alunos.list_all"))
 
-    # 4. Validação da Turma
+    # 4. Validação da Turma (Busca e tipagem correta)
+    turma_obj = None
     if turma_id:
-        turma = Turma.query.get(turma_id)
-        if not turma:
+        try:
+            turma_id_int = int(turma_id)
+            turma_obj = Turma.query.get(turma_id_int)
+        except ValueError:
+             flash("ID da Turma inválido.", "danger")
+             return redirect(url_for("alunos.list_all"))
+             
+        if not turma_obj:
             flash("Turma selecionada não existe.", "danger")
             return redirect(url_for("alunos.list_all"))
-        turma_id = int(turma_id)
+        
+        turma_id = turma_id_int
     else:
         turma_id = None
         
@@ -122,10 +130,21 @@ def editar_aluno(aluno_id):
     aluno.matricula = matricula
     
     # 4. Atualização da Turma
-    if turma_id and turma_id != "":
-        aluno.turma_id = int(turma_id)
+    if turma_id:
+        try:
+            # Tenta converter para inteiro ANTES de consultar o DB
+            turma_id = int(turma_id)
+        except ValueError:
+            flash("ID da Turma inválido.", "danger")
+            return redirect(url_for("alunos.list_all"))
+            
+        turma = Turma.query.get(turma_id)
+        if not turma:
+            flash("Turma selecionada não existe.", "danger")
+            return redirect(url_for("alunos.list_all"))
+        # A linha 'turma_id = int(turma_id)' no final do bloco 4 foi removida/movida
     else:
-        aluno.turma_id = None
+        turma_id = None
         
     db.session.commit()
     flash(f"Dados do aluno '{aluno.nome}' atualizados com sucesso!", "success")

@@ -9,7 +9,7 @@ from models.aula import Aula
 from models.presenca import Presenca
 
 
-def create_app():
+def create_app(test_config=None):
     app = Flask(__name__)
 
     # Configurações do banco
@@ -17,6 +17,10 @@ def create_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{os.path.join(basedir, 'instance', 'data.db')}"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.secret_key = "segredo_super_seguro"
+
+    if test_config is not None:
+        # Sobrescreve a config padrão
+        app.config.from_mapping(test_config)
 
     # Inicializa extensões
     db.init_app(app)
