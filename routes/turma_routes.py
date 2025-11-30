@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from models.turma import Turma
 from models.aula import Aula
 from models.aluno import Aluno
-from models.aluno import Presenca
+from models.presenca import Presenca
 from extensions import db
 from datetime import date
 
