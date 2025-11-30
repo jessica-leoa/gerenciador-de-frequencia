@@ -3,6 +3,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from models.turma import Turma
 from models.aula import Aula
 from models.aluno import Aluno
+from models.aluno import Presenca
 from extensions import db
 from datetime import date
 
@@ -119,7 +120,7 @@ def excluir_aula(aula_id):
     aula = Aula.query.get_or_404(aula_id)
     turma_id = aula.turma_id
     
-    # Exclui todos os registros de presença relacionados antes de excluir a aula
+    # Exclui todos os registros de presença relacionados antes de excluir a aulas
     Presenca.query.filter_by(aula_id=aula.id).delete()
     db.session.delete(aula)
     db.session.commit()
