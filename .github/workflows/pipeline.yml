@@ -7,7 +7,7 @@ on:
     branches: ["main", "develop"]
 
 permissions:
-  contents: write # cecessário para criar Releases e Tags
+  contents: write 
 
 jobs:
   build-and-test:
@@ -16,52 +16,38 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # importante para o SemVer ler o histórico de commits
+          fetch-depth: 0 
 
       - name: Configurar Python 3.11
         uses: actions/setup-python@v4
         with:
           python-version: "3.11"
 
-      - name: Instalar Dependências
+      - name: Instalar Dependências de Linting
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          # Instala ferramentas de teste que não estão no requirements.txt
-          pip install pytest flake8 python-semantic-release
+          pip install flake8
 
       - name: Linting com Flake8
         run: |
           # Para o build se houver erros graves de sintaxe
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-          # Apenas avisa sobre estilo (linhas muito longas, etc), mas não quebra o build
+          # Apenas avisa sobre estilo, mas não quebra o build
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
-      - name: Rodar Testes
+      - name: Rodar Testes via Docker (Igual Local)
         run: |
-          # Define variável de ambiente para testes (ex: usar banco em memória se configurado)
-          export FLASK_ENV=testing
-          pytest
+          # Garante que o script tem permissão de execução
+          chmod +x scripts/run_tests.sh
+          # Roda o script que sobe o docker, testa e derruba
+          ./scripts/run_tests.sh
 
-  #  VERIFICAÇÃO DOCKER
-  docker-check:
-    needs: build-and-test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout do código
-        uses: actions/checkout@v4
-
-      - name: Build da Imagem Docker
-        # apenas constrói para ver se o Dockerfile não tem erros.
-        run: docker build . --file Dockerfile --tag app-residencia:${{ github.sha }}
-
-  #LANÇAMENTO AUTOMÁTICO (apenas na Main)
+  # LANÇAMENTO AUTOMÁTICO 
   release:
-    needs: [build-and-test, docker-check]
-
+    needs: [build-and-test] 
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    concurrency: release # evita duas releases rodando ao mesmo tempo
+    concurrency: release 
 
     steps:
       - name: Checkout do código
@@ -73,4 +59,4 @@ jobs:
         uses: python-semantic-release/python-semantic-release@v8.3.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          root_options: "-v" # modo verboso para logs
+          root_options: "-v"
