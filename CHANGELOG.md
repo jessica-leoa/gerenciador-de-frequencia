@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.6.2 (2025-12-01)
+
+### Bug Fixes
+
+- Atualização do readme
+  ([`be9f468`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/be9f4681f77d347265064b5e36418957a826a262))
+
+
 ## v1.6.1 (2025-12-01)
 
 ### Bug Fixes
