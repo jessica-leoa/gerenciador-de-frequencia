@@ -46,23 +46,22 @@ Para manter o projeto focado nos objetivos da disciplina, o desenvolvimento inic
     -   [ ] Ver alunos reprovado por falta
 
 ## 3 Método de gerenciamento
-- Metodologia ágil Scrum
-- Usaremos o Trunk-based development como prática de versionamento pois entendo que atender  melhor as práticas DevOps
-- Usaremos o GitHub Project como ferramente de gerenciamento de requisitos e as Milistones como Sprints, associando Issues as essas Milistones.
-- As atualizações no código só será feita via Pull Request
-- Versionamento semantico com SemVer
-
+- Desenvolvimento livre, sem uso de Sprints formais.
+- As tarefas foram distribuídas de acordo com competências individuais de cada membro.
+- Utilização de Trunk-based Development, com branches curtas (feat/ e fix/) e PRs frequentes.
+- Uso do GitHub Projects para acompanhamento de tarefas e Issues.
+- Versionamento SemVer, automatizado via semantic-release.
 ## 4. Tecnologias Utilizadas
 
-| Categoria      | Tecnologia                                                              | Propósito                                             |
-| -------------- | ----------------------------------------------------------------------- | ----------------------------------------------------- |
-| **Backend**        |                             | Servidor web para a lógica da aplicação               |
-| **Frontend**       |                                              |  |
-| **GCS & DevOps**   | Git & GitHub                                                            | Versionamento e hospedagem do código                  |
-| **Containerização**| Docker                                                                  | Criação e gerenciamento do ambiente da aplicação      |
-| **CI/CD**          | GitHub Actions                                                          | Automação de build e integração contínua              |
+| Categoria           | Tecnologia                  | Propósito                                 |
+| ------------------- | --------------------------- | ----------------------------------------- |
+| **Backend**         | Python, Flask               | Lógica do servidor e rotas                |
+| **ORM/Migrações**   | SQLAlchemy, Alembic         | Modelagem e migração de dados             |
+| **Frontend**        | HTML, CSS (Jinja Templates) | Interface simples baseada em templates    |
+| **GCS & DevOps**    | Git & GitHub                | Versionamento e hospedagem do código      |
+| **Containerização** | Docker                      | Ambiente padronizado da aplicação         |
+| **CI/CD**           | GitHub Actions              | Automação de lint, testes e versionamento |
 
-*Observação: Nesta fase inicial, não será utilizado um banco de dados. Os dados das turmas e alunos serão simulados ("mockados") diretamente no código-fonte para simplificar o ambiente.*
 
 ## 5. Como Executar o Projeto Localmente
 
@@ -93,13 +92,7 @@ Para executar esta aplicação, você precisará ter o **Git** e o **Docker** in
 5.  **Acesse a aplicação:**
     Abra seu navegador e acesse [http://localhost:8080](http://localhost:8080)
 
-## 6. Estrutura do Repositório (Planejada)
-
-```
-
-```
-
-## 7. Autores
+## 6. Autores
 
 **Jéssica Roberta de Souza Santos**
 
@@ -111,3 +104,4 @@ Para executar esta aplicação, você precisará ter o **Git** e o **Docker** in
 
 
 ---
+
