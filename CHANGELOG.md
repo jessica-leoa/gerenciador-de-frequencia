@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.6.1 (2025-12-01)
+
+### Bug Fixes
+
+- Ajuste de erro de palavra
+  ([`7a029cd`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/7a029cd49f30a67f49155686f373a6da5424a07d))
+
+
 ## v1.6.0 (2025-12-01)
 
 ### Features
