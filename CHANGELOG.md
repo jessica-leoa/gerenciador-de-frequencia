@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.6.3 (2025-12-01)
+
+### Bug Fixes
+
+- Adicionar nota ao professor
+  ([`5bdd86c`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/5bdd86cda01192747b340b1bc75b6d685ff2594a))
+
+
 ## v1.6.2 (2025-12-01)
 
 ### Bug Fixes
