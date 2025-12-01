@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.6.0 (2025-12-01)
+
+### Features
+
+- Adicionando relatorio.md (ref #76)
+  ([`76141ca`](https://github.com/jessica-leoa/gerenciador-de-frequencia/commit/76141ca63ca6e6042b65d3642483090b59334ad1))
+
+
 ## v1.5.0 (2025-11-30)
 
 ### Bug Fixes
