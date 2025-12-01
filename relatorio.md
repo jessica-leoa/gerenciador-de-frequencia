@@ -129,3 +129,6 @@ Do ponto de vista acadêmico a necessidade de aprender novas ferramentas foi uma
 **Tobias Oliveira**: Além das lições técnicas aprendidas, por meio do levantamento dúvidas, enganos corrigidos, conversas e pesquisas feitas ao longo do projeto, faço algumas reflexões sobre o grupo e o conhecimento necessário para gerenciar um projeto com certa complexidade: 
 * A dificuldade de trabalhar em grupo, principalmente à distância, com os membros com suas diferenças de conhecimento, disponibilidade de horários, diferentes visões e aspirações com relação ao projeto, sem dúvidas é uma experiência que me traz mais maturidade e amplia minha visão de mundo. 
 * Outro ponto de lição aprendida, é a necessidade de partir de um nível de conhecimento e ideia do projeto compartilhada por todos os membros. Para assim trabalhar de forma mais eficiente e atingir os objetivos com maior clareza.  
+
+
+***Nota ao professor**: na seção de contribuidores, no github, existem dois perfis extras, além do action-user. `mphili10` é outro usuário do Lourenço, membro do time. `nielsonjr` é um usuário de um computador usado pela Jéssica. Ambos foram incluídos por erros da equipe, que não verificou o usuário que estava fazendo os PR/modificações.*
