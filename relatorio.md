@@ -2,7 +2,7 @@
 
 ## Estratégia de Branching Utilizada
 
-Utilizamos a estratégia de **branching chunked-base**, estruturando o fluxo de desenvolvimento em pequenos blocos independentes. Para organização das tarefas:
+Utilizamos a estratégia de **branching trunk-based**, estruturando o fluxo de desenvolvimento em pequenos blocos independentes. Para organização das tarefas:
 
 * Branches de novas funcionalidades seguiam o padrão: **feat/nome-da-branch**
 * Branches de correções seguiam o padrão: **fix/nome-da-branch**
